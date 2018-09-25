@@ -1,0 +1,25 @@
+package com.kevin;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class HotelApiApplication {
+	
+	public static void getInfo(String[] args) {
+		String uri = "mongodb://Admin:admin@mongodb-shard-00-00-altt9.mongodb.net:27017,mongodb-shard-00-01-altt9.mongodb.net:27017,mongodb-shard-00-02-altt9.mongodb.net:27017/admin?replicaSet=MongoDB-shard-0&ssl=true";
+        MongoClientURI clientURI = new MongoClientURI(uri);
+        MongoClient mongoClient = new MongoClient(clientURI);
+
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("MongoDB");
+        MongoCollection<Document> collection = mongoDatabase.getCollection("test");
+
+        System.out.println("Database Connected");
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(HotelApiApplication.class, args);
+		
+		
+	}
+}

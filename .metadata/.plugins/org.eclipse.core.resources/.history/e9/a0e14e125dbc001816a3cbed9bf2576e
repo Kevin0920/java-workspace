@@ -1,0 +1,64 @@
+package com.kevin.controllers;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+
+import com.kevin.entities.*;
+import com.kevin.services.HotelService;
+
+@RestController
+@RequestMapping("/hotels")
+public class HotelController {
+	
+	private HotelService hotelService;
+	
+	@Autowired	
+	public HotelController(HotelService hotelService) {
+			this.hotelService = hotelService;
+	}
+
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public List<Hotel> getAllHotels() {
+		return hotelService.findAll();
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	Hotel addHotel(@RequestBody Hotel hotel){
+		return hotelService.addHotel(hotel);
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public Optional<Hotel> getHotelById(@PathVariable String id) {
+		return hotelService.findById(id);
+	}
+	
+	
+//	@GetMapping("/price /{maxPrice}")
+//	public List<Hotel> getByPricePerNight(@PathVariable("maxPrice") int maxPrice) {
+//		List<Hotel> hotels = this.hotelRepository.findByPricePerNight(maxPrice);
+//		return hotels;
+//	}
+//	
+//	
+//	@GetMapping("/address/{city}")
+//	public List<Hotel> getByCity(@PathVariable("city") String city) {
+//		List<Hotel> hotels = this.hotelRepository.findByCity(city);
+//		
+//		return hotels;
+//	}
+//	
+//	@PutMapping
+//    public void updateHotel(@RequestBody Hotel hotel){
+//        this.hotelRepository.save(hotel);
+//    }
+//	
+	@DeleteMapping("/hotels/{id}")
+    public Hotel deletHotel(@PathVariable String id){
+        return hotelService.deleteHotel(id);
+    }
+	
+}

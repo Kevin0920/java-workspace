@@ -1,0 +1,15 @@
+package com.kevin.services;
+
+import java.util.List;
+
+import com.kevin.entities.Hotel;
+
+public interface HotelService {
+
+	Hotel addHotel(Hotel hotel);
+	Hotel deletHotel(String id);
+	List<Hotel> getAllHotels();
+	Hotel getHotelById(String id);
+	Hotel update(Hotel hotel);
+	
+}

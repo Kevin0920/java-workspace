@@ -1,0 +1,111 @@
+package com.kevin.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import javax.management.Query;
+
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.stereotype.Service;
+import org.springframework.data.mongodb.core.aggregation.*;
+
+import com.kevin.entities.Hotel;
+import com.kevin.entities.Review;
+import com.kevin.repositories.HotelRepository;
+
+@Service
+public class MongoHotelServiceImpl implements HotelService{
+	
+	private final MongoTemplate mongoTemplate;
+	private HotelRepository hotelRepository;
+	
+	@Autowired
+	public MongoHotelServiceImpl(MongoTemplate mongoTemplate, HotelRepository hotelRepository) {
+		this.mongoTemplate = mongoTemplate;
+		this.hotelRepository = hotelRepository;
+	}
+
+	
+
+
+	@Override
+	public Hotel addHotel(Hotel hotel) {
+		return hotelRepository.insert(hotel);
+	}
+	
+
+	@Override
+	public List<Hotel> findAll() {
+		return hotelRepository.findAll();
+	}
+
+	@Override
+	public Optional<Hotel> findById(String id) {
+		return hotelRepository.findById(id);
+	}
+
+	@Override
+	public Optional<Hotel> deleteHotel(String id) {
+		Optional<Hotel> deletedHotel = hotelRepository.findById(id);
+		hotelRepository.deleteById(id);
+		return deletedHotel;
+	}
+
+	@Override
+	public Hotel updateHotel(Hotel hotel) {
+		hotelRepository.save(hotel);
+		return hotel;
+	}
+
+	@Override
+	public List<Hotel> findByPricePerNight(int maxPrice) {
+		return hotelRepository.findByPricePerNight(maxPrice);
+	}
+
+	@Override
+	public List<Hotel> findByCity(String city) {
+		return hotelRepository.findByCity(city);
+	}
+
+
+
+
+	@Override
+	public List<Hotel> aggregate(int totalRating) {
+		 MatchOperation matchOperation = getMatchOperation(totalRating);
+	        GroupOperation groupOperation = getGroupOperation();
+	        ProjectionOperation projectionOperation = getProjectOperation();
+
+	}
+
+
+
+	private MatchOperation getMatchOperation(int totalRating) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	private ProjectionOperation getProjectOperation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+	private GroupOperation getGroupOperation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+	
+	
+
+}

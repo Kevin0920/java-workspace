@@ -1,0 +1,56 @@
+package com.kevin.services;
+
+import java.security.cert.PKIXRevocationChecker.Option;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.kevin.entities.Hotel;
+import com.kevin.repositories.HotelRepository;
+
+@Service
+public class MongoHotelServiceImpl implements HotelService{
+	
+	private HotelRepository hotelRepository;
+	
+	@Autowired
+	public MongoHotelServiceImpl(HotelRepository hotelRepository) {
+		this.hotelRepository = hotelRepository;
+	}
+
+	@Override
+	public Hotel addHotel(Hotel hotel) {
+		return hotelRepository.insert(hotel);
+	}
+	
+
+	@Override
+	public List<Hotel> findAll() {
+		return hotelRepository.findAll();
+	}
+
+	@Override
+	public Optional<Hotel> findById(String id) {
+		return hotelRepository.findById(id);
+	}
+
+	@Override
+	public Optional<Hotel> deleteHotel(String id) {
+		Optional<Hotel> deletedHotel = hotelRepository.findById(id);
+		hotelRepository.deleteById(deletedHotel);
+		return deletedHotel;
+	}
+
+	@Override
+	public Hotel deleteHotel(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	
+
+}

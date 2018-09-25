@@ -1,0 +1,109 @@
+package com.kevin.services;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Fields;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
+
+import com.kevin.entities.Hotel;
+import com.kevin.entities.Review;
+import com.kevin.entities.Address;
+import com.kevin.repositories.HotelRepository;
+
+@Repository
+public class MongoHotelServiceImpl implements HotelService{
+	
+	private final MongoTemplate mongoTemplate;
+
+	
+	@Autowired
+	public MongoHotelServiceImpl(MongoTemplate mongoTemplate) {
+		this.mongoTemplate = mongoTemplate;
+	}
+
+	
+
+
+	@Override
+	public Hotel addHotel(Hotel hotel) {
+		mongoTemplate.insert(hotel);
+		return hotel;
+	}
+	
+
+	@Override
+	public List<Hotel> findAll() {
+		return mongoTemplate.findAll(Hotel.class);
+	}
+
+	@Override
+	public Hotel findByName(String name) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("name").is(name));
+		return mongoTemplate.findOne(query, Hotel.class);
+	}
+
+
+
+	@Override
+	public Hotel updateHotel(Hotel hotel) {
+		mongoTemplate.save(hotel);
+		return hotel;
+	}
+
+
+	@Override
+	public List<Address> findByCity(String city) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("city").is(city));
+		
+		return mongoTemplate.find(query, Address.class);
+	}
+
+
+	@Override
+	public List<Hotel> findByPricePerNight(int maxPrice) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("pricePerNight").is(maxPrice));
+		return mongoTemplate.find(query, Hotel.class);
+	}
+
+
+
+
+	@Override
+	public List<Hotel> findByReviewsUserName(String userName) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("reviews.userName").is(userName));
+		query.fields().include("_id");
+		query.fields().include("name");
+		query.fields().include("pricePerNight");
+		query.fields().include("address");
+		Query query2 = new Query();
+		List<Review> eachReviewInfo = mongoOperation.find(query2, Review.class);
+		
+		return mongoTemplate.find(query, Hotel.class);
+	}
+	
+	
+
+
+//	@Override
+//	public void deleteHotel(String id) {
+//		mongoTemplate.remove(id);
+//	}
+
+	
+
+}

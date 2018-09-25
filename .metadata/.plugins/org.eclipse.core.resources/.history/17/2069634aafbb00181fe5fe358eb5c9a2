@@ -1,0 +1,53 @@
+package com.kevin.repositories;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
+
+import com.kevin.entities.Hotel;
+import com.mongodb.operation.GroupOperation;
+
+public abstract class HotelRepositoryImp implements HotelRepoCustom {
+
+	private final MongoTemplate mongoTemplate;
+	
+	@Autowired
+	public HotelRepositoryImp(MongoTemplate mongoTemplate) {
+		this.mongoTemplate = mongoTemplate;
+	}
+	
+	
+	@Override
+	public List<Hotel> aggregate(int lowestRating, int hightestRating) {
+		MatchOperation matchOperation = getMatchOperation(lowestRating, hightestRating);
+		GroupOperation groupOperation = getGroupOperation();
+		ProjectionOperation projectionOperation = getProjectOperation();
+		
+	}
+	
+	
+
+
+	private ProjectionOperation getProjectOperation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	private GroupOperation getGroupOperation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	private MatchOperation getMatchOperation(int lowestRating, int hightestRating) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
+}

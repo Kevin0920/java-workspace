@@ -1,0 +1,34 @@
+package com.kevin.model;
+
+import java.util.List;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "person")
+public class Person {
+	@Id
+	private String personId;
+	private String name;
+	private long age;
+	private List<String> favoriteBooks;
+	private Date dateOfBirth;
+	
+	public Person() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public Person(String personId, String name, long age, List<String> favoriteBooks, Date dateOfBirth) {
+		super();
+		this.personId = personId;
+		this.name = name;
+		this.age = age;
+		this.favoriteBooks = favoriteBooks;
+		this.dateOfBirth = dateOfBirth;
+	}
+	
+	
+	
+	
+}

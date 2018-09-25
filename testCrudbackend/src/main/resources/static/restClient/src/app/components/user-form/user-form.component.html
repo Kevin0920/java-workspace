@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1 style="text-align: center;">
+      Create / Update
+    </h1>
+  </div>
+</div>
+<div class="container">
+  <form (ngSubmit) = "processForm()">
+    <div class="form-group">
+      <input type="text" name="id" class="form-control" 
+      [(ngModel)]="user.id">
+    </div>
+    <div class="form-group">
+      <label for="fname">First Name</label>
+      <input type="text" name="fname" class="form-control" 
+      [(ngModel)]="user.fname">
+    </div>
+    <div class="form-group">
+      <label for="lname">First Name</label>
+      <input type="text" name="lname" class="form-control" 
+      [(ngModel)]="user.lname">
+    </div>
+    <button type="submit" value="save" class="btn btn-success">Save</button> 
+  </form>
+</div>

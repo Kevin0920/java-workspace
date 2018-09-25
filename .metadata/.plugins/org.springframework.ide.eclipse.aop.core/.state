@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="testCrudbackend"/>
+<aop-project name="courseApi"/>
+<aop-project name="mongoTemplateTest"/>
+<aop-project name="demo-rest"/>
+<aop-project name="HotelApi"/>
+</aop-reference-model>

@@ -1,0 +1,7 @@
+package com.kevin.repositories;
+
+public abstract class HotelRepositoryImp implements HotelRepoCustom {
+
+	
+	
+}

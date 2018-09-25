@@ -1,0 +1,43 @@
+package com.kevin;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.kevin.dal.PersonDal;
+import com.kevin.model.Person;
+
+import java.util.Arrays;
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@SpringBootApplication
+public class MongoTemplateTestApplication implements CommandLineRunner {
+	
+	private static final Logger LOG = LoggerFactory.getLogger("AppsDeveloper");
+
+	private PersonDal personDAL;
+	
+	@Autowired
+	public MongoTemplateTestApplication(PersonDal personDal) {
+		this.personDal = personDal;
+	}
+	
+
+	public static void main(String[] args) {
+		SpringApplication.run(MongoTemplateTestApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+
+		 personDAL.savePerson(new Person(
+		           "Shubham", Arrays.asList("Harry potter", "Waking Up"), new Date(769372200000L)));
+		
+		     
+	}
+}

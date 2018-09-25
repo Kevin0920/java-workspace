@@ -1,0 +1,23 @@
+package com.kevin;
+
+import org.bson.Document;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mongodb.Block;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+
+
+@SpringBootApplication	
+public class HotelApiApplication {
+	
+
+	public static void main(String[] args) {
+		SpringApplication.run(HotelApiApplication.class, args);
+		
+	}
+}

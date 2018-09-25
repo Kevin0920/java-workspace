@@ -1,0 +1,68 @@
+package com.kevin.repositories;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.MatchOperation;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
+import org.springframework.data.mongodb.core.aggregation.GroupOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
+
+import com.kevin.entities.Address;
+import com.kevin.entities.Hotel;
+
+import com.kevin.entities.Review;
+
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+
+public abstract class HotelRepositoryImp implements HotelRepoCustom {
+
+	private final MongoTemplate mongoTemplate;
+	
+	@Autowired
+	public HotelRepositoryImp(MongoTemplate mongoTemplate) {
+		this.mongoTemplate = mongoTemplate;
+	}
+	
+	
+	@Override
+	public List<Hotel> aggregate(int lowestRating, int hightestRating) {
+		MatchOperation matchOperation = getMatchOperation(lowestRating, hightestRating);
+		GroupOperation groupOperation = getGroupOperation();
+		ProjectionOperation projectionOperation = getProjectOperation();
+		
+		return mongoTemplate.aggregate(Aggregation.newAggregation(
+				matchOperation,
+				groupOperation,
+				projectionOperation		
+		), Hotel.class, Review.class, Address.class).getMappedResults();
+		
+	}
+	
+	
+
+	private MatchOperation getMatchOperation(int lowestRating, int hightestRating) {
+		Criteria ratingCriteria = where("rating").gt(lowestRating).andOperator(where("rating").lt(hightestRating));
+		return match(ratingCriteria);
+	}
+	
+	private GroupOperation getGroupOperation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private ProjectionOperation getProjectOperation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+	
+	
+}

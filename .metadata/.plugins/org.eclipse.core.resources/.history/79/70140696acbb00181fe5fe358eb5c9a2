@@ -1,0 +1,9 @@
+package com.kevin.repositories;
+
+import java.util.List;
+
+public interface HotelRepoCustom {
+	
+	List<HotelSummary> aggregate(int lowestRating, int hightestRating);
+	
+}

@@ -1,0 +1,5 @@
+package com.kevin.dal;
+
+public interface PersonDal {
+
+}

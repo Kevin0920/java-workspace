@@ -1,0 +1,68 @@
+package com.kevin.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Service;
+
+import com.kevin.entities.Hotel;
+import com.kevin.repositories.HotelRepository;
+
+@Service
+public class MongoHotelServiceImpl implements HotelService{
+	
+	private final MongoTemplate mongoTemplate;
+	
+	@Autowired
+	public MongoHotelServiceImpl(MongoTemplate mongoTemplate, HotelRepository hotelRepository) {
+		this.mongoTemplate = mongoTemplate;
+		this.hotelRepository = hotelRepository;
+	}
+
+	private HotelRepository hotelRepository;
+	
+
+	@Override
+	public Hotel addHotel(Hotel hotel) {
+		return hotelRepository.insert(hotel);
+	}
+	
+
+	@Override
+	public List<Hotel> findAll() {
+		return hotelRepository.findAll();
+	}
+
+	@Override
+	public Optional<Hotel> findById(String id) {
+		return hotelRepository.findById(id);
+	}
+
+	@Override
+	public Optional<Hotel> deleteHotel(String id) {
+		Optional<Hotel> deletedHotel = hotelRepository.findById(id);
+		hotelRepository.deleteById(id);
+		return deletedHotel;
+	}
+
+	@Override
+	public Hotel updateHotel(Hotel hotel) {
+		hotelRepository.save(hotel);
+		return hotel;
+	}
+
+	@Override
+	public List<Hotel> findByPricePerNight(int maxPrice) {
+		return hotelRepository.findByPricePerNight(maxPrice);
+	}
+
+	@Override
+	public List<Hotel> findByCity(String city) {
+		return hotelRepository.findByCity(city);
+	}
+	
+	
+
+}

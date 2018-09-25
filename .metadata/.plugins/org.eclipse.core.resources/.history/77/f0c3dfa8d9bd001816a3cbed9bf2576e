@@ -1,0 +1,24 @@
+package com.kevin.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.mongodb.repository.Query;
+
+import com.kevin.entities.Hotel;
+import com.kevin.entities.Review;
+
+public interface HotelService {
+	
+	Hotel addHotel(Hotel hotel);
+	Optional<Hotel> findById(String id);
+	List<Hotel> findAll();
+	Optional<Hotel> deleteHotel(String id);
+	Hotel updateHotel(Hotel hotel);
+	List<Hotel> findByPricePerNight(int maxPrice);
+	List<Hotel> findByCity(String city);
+	
+	@Query(value = "{}", fields = "{rating: 1, _id: 0}")
+	List<Review> findRatingAndExcludeId();
+	
+}

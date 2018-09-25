@@ -1,0 +1,20 @@
+package com.kevin.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.kevin.entities.Address;
+import com.kevin.entities.Hotel;
+
+
+public interface HotelService {
+	
+	Hotel addHotel(Hotel hotel);
+	Hotel findByName(String name);
+	List<Hotel> findAll();
+	Optional<Hotel> deleteHotel(String id);
+	Hotel updateHotel(Hotel hotel);
+	List<Hotel> findByPricePerNight(int maxPrice);
+	List<Address> findByCity(String city);
+	
+}

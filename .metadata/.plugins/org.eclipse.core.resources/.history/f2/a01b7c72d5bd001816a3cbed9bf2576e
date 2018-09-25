@@ -1,0 +1,22 @@
+package com.kevin.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.kevin.entities.Hotel;
+
+public interface HotelService {
+	
+	Hotel addHotel(Hotel hotel);
+	Optional<Hotel> findById(String id);
+	List<Hotel> findAll();
+	Optional<Hotel> deleteHotel(String id);
+	Hotel updateHotel(Hotel hotel);
+	List<Hotel> findByPricePerNight(int maxPrice);
+	List<Hotel> findByCity(String city);
+	
+	
+	// aggregagtion func
+	List<Hotel> aggregate(int minPrice, int maxPrice);
+	
+}

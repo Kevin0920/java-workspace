@@ -1,0 +1,91 @@
+package com.kevin.dal;
+
+import java.util.List;
+
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
+
+import com.kevin.model.Person;
+
+public class PersonDaALImpl implements PersonDal {
+	
+	private MongoTemplate mongoTemplate;
+	
+	@Autowired
+	public PersonDaALImpl(MongoTemplate mongoTemplate) {
+		this.mongoTemplate = mongoTemplate;
+	}
+	
+	@Override
+	public Person savePerson(Person person) {
+		mongoTemplate.save(person);
+		return person;
+	}
+
+	@Override
+	public List<Person> getAllPerson() {
+		return mongoTemplate.findAll(Person.class);
+	}
+
+	@Override
+	public List<Person> getAllPersonPaginated(int pageNumber, int pageSize) {
+		Query query = new Query();
+		query.skip(pageNumber * pageSize);
+		query.limit(pageSize);
+		
+		return mongoTemplate.find(query, Person.class); 
+	}
+
+	@Override
+	public Person findOneByName(String name) {
+		Query query = new Query();
+		query.addCriteria(null)
+		return null;
+	}
+
+	@Override
+	public List<Person> findByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Person> findByBirthDateAfter(Date date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Person> findByAgeRange(int lowerBound, int upperBound) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Person> findByFavoriteBooks(String favoriteBook) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateMultiplePersonAge() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Person updateOnePerson(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deletePerson(Person person) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

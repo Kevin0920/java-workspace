@@ -1,0 +1,11 @@
+package com.kevin.services;
+
+import java.util.List;
+
+import com.kevin.entities.Hotel;
+
+public interface HotelService {
+	
+	Hotel addHotel(Hotel hotel);
+	List<Hotel> findAll();
+}
